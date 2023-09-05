@@ -1,6 +1,6 @@
-defaultMinusAccount: Assets:FIXME
+﻿defaultMinusAccount: Assets:FIXME
 defaultPlusAccount: Expenses:FIXME
-defaultCommissionAccount: Expenses:Commission:FIXME
+defaultCommissionAccount: Expenses:Life:Financial:Commissions
 defaultCurrency: CNY
 title: 测试
 wechat:
@@ -9,70 +9,132 @@ wechat:
     - type: 收入 # 微信红包
       method: /
       item: /
-      targetAccount: Income:Wechat:RedPacket
+      targetAccount: Income:Investment:OtherIncome
     - type: / # 转入零钱通
       txType: 转入零钱
       peer: /
       item: /
-      targetAccount: Assets:Digital:Wechat:Cash
+      targetAccount: Assets:Flow:EBank:WeChat
     - type: / # 零钱提现
       txType: 零钱提现
-      targetAccount: Assets:Digital:Wechat:Cash
-      commissionAccount: Expenses:Wechat:Commission
+      targetAccount: Assets:Flow:EBank:WeChat
+      commissionAccount: Expenses:Life:Financial:Commissions
     - type: / # 零钱充值
       txType: 零钱充值
-      targetAccount: Assets:Digital:Wechat:Cash
-    - type: / # 零钱通转出-到工商银行(9876)
-      txType: 零钱通转出-到工商银行(9876)
-      targetAccount: Assets:Bank:CN:ICBC:Savings
-    - type: 支出
-      txType: 赞赏码
-      targetAccount: Expenses:Wechat:Sponsor
+      targetAccount: Assets:Flow:EBank:WeChat
+    - type: / # 零钱提现
+      txType: 零钱提现
+      targetAccount: Assets:Flow:Bank:ABCDebt
 
-    - peer: 云膳过桥米线,餐厅
+    - type: 支出 # 微信红包
+      txType: 微信红包（单发）
+      targetAccount: Income:Investment:OtherIncome
+
+    - peer: 餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王
+      sep: ","
+      time: 6:00-11:00
+      targetAccount: Expenses:Life:Dining:Lunch
+    - peer: 餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王
       sep: ","
       time: 11:00-15:00
-      targetAccount: Expenses:Food:Meal:Lunch
-    - peer: 云膳过桥米线,餐厅
+      targetAccount: Expenses:Life:Dining:Lunch
+    - peer: 餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王
       sep: ","
       time: 16:30-21:30
-      targetAccount: Expenses:Food:Meal:Dinner
-    - peer: 餐厅
+      targetAccount: Expenses:Life:Dining:Dinner
+    - peer: 麦当劳,汉堡王
       time: 23:55-00:10 # test T+1
-      targetAccount: Expenses:Food:Meal:MidNight
-    - peer: 餐厅
-      time: 23:50-00:05 # test T-1
-      targetAccount: Expenses:Food:Meal:MidNight
+      targetAccount: Expenses:Life:Dining:Dinner
 
-    - peer: 房东
+    - peer: 上海市实验学校
+      targetAccount: Expenses:Life:Dining:Lunch
+
+    - peer: 好特卖HotMaxx,阿果果上海齐河路店,全家
+      targetAccount: Expenses:Life:Dining:Drinking
+
+    - peer: 多乐之日,早安巴黎
+      targetAccount: Expenses:Life:Dining:Refreshment
+      
+    - peer: 唐浩@恒盛苑
       type: 支出
-      targetAccount: Expenses:Housing:Rent
+      txType: 转账
+      targetAccount: Expenses:Life:Living:Rent      
+
+    - peer: 红星欧丽洛雅家居生活广场,停车,恒盛苑
+      type: 支出
+      txType: 商户消费
+      targetAccount: Expenses:Life:Auto:Parking
+
+    - item: 停车,临停订单
+      type: 支出
+      txType: 商户消费
+      targetAccount: Expenses:Life:Auto:Parking
+
+    - peer: 石化,石油
+      type: 支出
+      txType: 商户消费
+      targetAccount: Expenses:Life:Auto:Gas
+
+    - peer: 剑桥英语
+      type: 支出
+      targetAccount: Expenses:Life:Education:TutoringFee
+
+    - peer: 奥付云(易迅)
+      type: 支出
+      targetAccount: Expenses:Life:ClothingBeauty:Haircut
+
+    - peer: 民航上海医院,上海唯宜儿科门诊部有限公司,平安健康
+      type: 支出
+      targetAccount: Expenses:Life:Medical:Drugs
+
+    - peer: 安心接送,同程旅行
+      type: 支出
+      targetAccount: Expenses:Life:Transportation:Taxi
+
+    - peer: 菜鸟裹裹,顺丰
+      type: 支出
+      targetAccount: Expenses:Life:Transportation:Express
 
     - peer: 用户
       type: 收入
       targetAccount: Income:Service
       tag: income,service
 
-    - peer: 理财通
-      type: /
-      targetAccount: Assets:Trade:Tencent:LiCaiTong
-
     - peer: 建设银行
       txType: 信用卡还款
-      targetAccount: Liabilities:Bank:CN:CCB
+      targetAccount: Liabilities:Life:CreditCard:CCB
+
+    - peer: 平安银行
+      txType: 信用卡还款
+      targetAccount: Liabilities:Life:CreditCard:Pingan
 
     - method: / # 一般为收入，存入零钱
-      methodAccount: Assets:Digital:Wechat:Cash
+      methodAccount: Assets:Flow:EBank:WeChat
+
     - method: 零钱
       fullMatch: true
-      methodAccount: Assets:Digital:Wechat:Cash
-    - method: 零钱通
+      methodAccount: Assets:Flow:EBank:WeChat
+
+    - method: 平安银行
+      type: "支出"
+      methodAccount: Liabilities:Life:CreditCard:Pingan
+
+    - method: 农业银行
+      methodAccount: Assets:Flow:Bank:ABCDebt
+
+    - method: 中信银行
+      methodAccount: Liabilities:Life:CreditCard:CITIC
+
+    - method: 浦发银行
+      methodAccount: Liabilities:Life:CreditCard:SPDB
+
+    - method: 建设银行(1201)
       fullMatch: true
-      methodAccount: Assets:Digital:Wechat:Cash
-    - method: 工商银行
-      methodAccount: Assets:Bank:CN:ICBC:Savings
-    - method: 中国银行
-      methodAccount: Assets:Bank:CN:BOC:Savings
+      methodAccount: Liabilities:Life:CreditCard:CCB
+
+    - method: 建设银行(6396)
+      fullMatch: true
+      methodAccount: Liabilities:Life:CreditCard:CCB
 
     - peer: 测试时间戳
       timestamp_range: 1658112487-1658112490 # order_time= 2022-07-18 10:48:09 ts=1658112489
